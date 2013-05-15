@@ -18,6 +18,22 @@ public class TripServiceTest {
         tripService.getTripsByUser(null);
     }
 
+    @Test
+    public void
+    should_not_return_any_trips_when_users_are_not_friends() throws Exception {
+        TripService tripService = new TestingTripService();
+
+        loggedInUser = REGISTERED_USER;
+
+        User friend = new User();
+        friend.addFriend(ANOTHER_USER);
+        friend.addTrip(TO_BRAZIL);
+
+        List<Trip> friendTrips = tripService.getTripsByUser(friend);
+
+        assertThat(friendTrips.size(), is(0));
+    }
+
     class TestingTripService extends TripService {
         @Override
         User getLoggedUser() {
