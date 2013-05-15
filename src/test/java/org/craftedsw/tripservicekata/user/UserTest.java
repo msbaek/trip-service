@@ -19,4 +19,14 @@ public class UserTest {
 
         assertThat(user.isFriendsWith(PAUL), is(false));
     }
+
+    @Test
+    public void
+    should_inform_when_users_are_friends() throws Exception {
+        User user = aUser()
+                .friendsWith(BOB, PAUL)
+                .build();
+
+        assertThat(user.isFriendsWith(PAUL), is(true));
+    }
 }
