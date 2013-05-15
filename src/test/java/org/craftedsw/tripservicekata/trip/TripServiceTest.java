@@ -16,6 +16,7 @@ public class TripServiceTest {
     private User REGISTERED_USER = new User();
     private User ANOTHER_USER = new User();
     private Trip TO_BRAZIL = new Trip();
+    private Trip TO_LONDON = new Trip();
     private TripService tripService;
 
     @Before
@@ -65,6 +66,11 @@ public class TripServiceTest {
         @Override
         User getLoggedUser() {
             return loggedInUser;
+        }
+
+        @Override
+        List<Trip> tripsByUser(User user) {
+            return user.trips();
         }
     }
 }
