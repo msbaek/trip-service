@@ -4,9 +4,17 @@ import org.craftedsw.tripservicekata.exception.UserNotLoggedInException;
 import org.craftedsw.tripservicekata.user.User;
 import org.junit.Test;
 
+import java.util.List;
+
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
+
 public class TripServiceTest {
     private User loggedInUser;
     private User GUEST = null;
+    private User REGISTERED_USER = new User();
+    private User ANOTHER_USER = new User();
+    private Trip TO_BRAZIL = new Trip();
 
     @Test(expected = UserNotLoggedInException.class)
     public void
