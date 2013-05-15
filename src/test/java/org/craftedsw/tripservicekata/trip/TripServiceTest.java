@@ -6,13 +6,14 @@ import org.junit.Test;
 
 public class TripServiceTest {
     private User loggedInUser;
+    private User GUEST = null;
 
     @Test(expected = UserNotLoggedInException.class)
     public void
     should_throw_an_exception_when_user_is_not_logged_in() throws Exception {
         TripService tripService = new TestingTripService();
 
-        loggedInUser = null;
+        loggedInUser = GUEST;
 
         tripService.getTripsByUser(null);
     }
