@@ -45,6 +45,22 @@ public class TripServiceTest {
         assertThat(friendTrips.size(), is(0));
     }
 
+    @Test
+    public void
+    should_return_friend_trips_when_users_are_friends() throws Exception {
+        loggedInUser = REGISTERED_USER;
+
+        User friend = new User();
+        friend.addFriend(ANOTHER_USER);
+        friend.addFriend(loggedInUser);
+        friend.addTrip(TO_BRAZIL);
+        friend.addTrip(TO_LONDON);
+
+        List<Trip> friendTrips = tripService.getTripsByUser(friend);
+
+        assertThat(friendTrips.size(), is(2));
+    }
+
     class TestingTripService extends TripService {
         @Override
         User getLoggedUser() {
