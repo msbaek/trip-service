@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TripService {
-    public List<Trip> getTripsByUser(User user) throws UserNotLoggedInException {
-        if(getLoggedUser() == null)
+    public List<Trip> getTripsByUser(User user, User loggedUser) throws UserNotLoggedInException {
+        if(loggedUser == null)
             throw new UserNotLoggedInException();
 
         return user.isFriendsWith(getLoggedUser())

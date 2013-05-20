@@ -31,7 +31,7 @@ public class TripServiceTest {
     should_throw_an_exception_when_user_is_not_logged_in() throws Exception {
         loggedInUser = GUEST;
 
-        tripService.getTripsByUser(null);
+        tripService.getTripsByUser(null, null);
     }
 
     @Test
@@ -42,7 +42,7 @@ public class TripServiceTest {
                 .withTrips(TO_BRAZIL)
                 .build();
 
-        List<Trip> friendTrips = tripService.getTripsByUser(friend);
+        List<Trip> friendTrips = tripService.getTripsByUser(friend, loggedInUser);
 
         assertThat(friendTrips.size(), is(0));
     }
@@ -55,7 +55,7 @@ public class TripServiceTest {
                 .withTrips(TO_BRAZIL, TO_LONDON)
                 .build();
 
-        List<Trip> friendTrips = tripService.getTripsByUser(friend);
+        List<Trip> friendTrips = tripService.getTripsByUser(friend, loggedInUser);
 
         assertThat(friendTrips.size(), is(2));
     }
