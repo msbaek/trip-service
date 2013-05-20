@@ -62,11 +62,6 @@ public class TripServiceTest {
 
     class TestingTripService extends TripService {
         @Override
-        User getLoggedUser() {
-            return loggedInUser;
-        }
-
-        @Override
         List<Trip> tripsByUser(User user) {
             return user.trips();
         }
