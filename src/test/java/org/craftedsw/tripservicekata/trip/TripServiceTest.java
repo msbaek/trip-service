@@ -4,13 +4,20 @@ import org.craftedsw.tripservicekata.exception.UserNotLoggedInException;
 import org.craftedsw.tripservicekata.user.User;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Spy;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.List;
 
 import static org.craftedsw.tripservicekata.trip.UserBuilder.aUser;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
+import static org.mockito.BDDMockito.given;
 
+@RunWith(MockitoJUnitRunner.class)
 public class TripServiceTest {
     private User loggedInUser;
     private User GUEST = null;
@@ -19,6 +26,9 @@ public class TripServiceTest {
     private Trip TO_BRAZIL = new Trip();
     private Trip TO_LONDON = new Trip();
     private TripService tripService;
+
+    @Mock private TripDAO tripDAO;
+    @InjectMocks @Spy private TripService realTripService = new TripService();
 
     @Before
     public void setUp() throws Exception {
@@ -31,7 +41,7 @@ public class TripServiceTest {
     should_throw_an_exception_when_user_is_not_logged_in() throws Exception {
         loggedInUser = GUEST;
 
-        tripService.getTripsByUser(null, null);
+        realTripService.getTripsByUser(null, null);
     }
 
     @Test
@@ -42,7 +52,7 @@ public class TripServiceTest {
                 .withTrips(TO_BRAZIL)
                 .build();
 
-        List<Trip> friendTrips = tripService.getTripsByUser(friend, loggedInUser);
+        List<Trip> friendTrips = realTripService.getTripsByUser(friend, loggedInUser);
 
         assertThat(friendTrips.size(), is(0));
     }
@@ -54,8 +64,9 @@ public class TripServiceTest {
                 .friendsWith(ANOTHER_USER, loggedInUser)
                 .withTrips(TO_BRAZIL, TO_LONDON)
                 .build();
+        given(tripDAO.tripsBy(friend)).willReturn(friend.trips());
 
-        List<Trip> friendTrips = tripService.getTripsByUser(friend, loggedInUser);
+        List<Trip> friendTrips = realTripService.getTripsByUser(friend, loggedInUser);
 
         assertThat(friendTrips.size(), is(2));
     }
