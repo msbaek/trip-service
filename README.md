@@ -10,6 +10,8 @@ Testing and Refactoring Legacy Code
 
 -   github: https://github.com/sandromancuso/trip-service-kata
 
+-   자세한 정리: http://durl.me/527rna
+
 내용
 --
 
