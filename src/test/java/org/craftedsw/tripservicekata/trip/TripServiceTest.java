@@ -25,14 +25,12 @@ public class TripServiceTest {
     private User ANOTHER_USER = new User();
     private Trip TO_BRAZIL = new Trip();
     private Trip TO_LONDON = new Trip();
-    private TripService tripService;
 
     @Mock private TripDAO tripDAO;
     @InjectMocks @Spy private TripService realTripService = new TripService();
 
     @Before
     public void setUp() throws Exception {
-        tripService = new TestingTripService();
         loggedInUser = REGISTERED_USER;
     }
 
@@ -69,12 +67,5 @@ public class TripServiceTest {
         List<Trip> friendTrips = realTripService.getTripsByUser(friend, loggedInUser);
 
         assertThat(friendTrips.size(), is(2));
-    }
-
-    class TestingTripService extends TripService {
-        @Override
-        List<Trip> tripsByUser(User user) {
-            return user.trips();
-        }
     }
 }

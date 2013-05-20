@@ -23,7 +23,7 @@ public class TripService {
         return new ArrayList<Trip>();
     }
 
-    List<Trip> tripsByUser(User user) {
+    private List<Trip> tripsByUser(User user) {
         return tripDAO.tripsBy(user);
     }
 }
